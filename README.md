@@ -12,3 +12,12 @@ Will require basic shell script knowledge.<br />
 - add cronjob to execute every 5mins
 
 All three domains will be resolved and then whitelisted in UFW. The old IP address will be removed each update.
+
+### Donations:
+**XMR:** 84wwa7EKo8uasZAHijHKtBTuBaMPuNjCJgnfGJrsLFo4aZcfrzGvUX33sSeFNdno8fPiTDGnz4h1bCvsdFQYWRuR2619FzS <br />
+**ETH(ERC-20):** 0xc89eEa9b5C0cfa7f583dc1A6405a7d5730ADB603 <br />
+**BNB(BSC)** 0xc89eEa9b5C0cfa7f583dc1A6405a7d5730ADB603 <br />
+**RTM:** RDg5KstHYvxip77EiGhPKYNL3TZQr6456T <br />
+**AVN:** R9zSPpKjo6tCutMT5FyyGNr2vRaAssEtrm <br />
+**PHL:** F7XaUosKYEXPP62o31DdpDoADo3VcxoFP4 <br />
+**PEXA:** XBghzGLdeUzspUcJpeggPFLs3mAyTRHpPH <br />
