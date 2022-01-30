@@ -13,16 +13,16 @@ declare -a HOSTNAMES
 declare -a HOSTNAMESIPS
 declare -a PREVIOUSIPS
 
+timestamp() {
+  echo -n "[$(date +"%Y-%m-%d %H-%M-%S")] "
+}
+
 timestamp ; echo ""
 timestamp ; echo "ufw-autowhitelist ${vVER}"
 timestamp ; echo ""
 timestamp ; echo "pwd [$vPWD]"
 timestamp ; echo "path [$vPATH]"
 timestamp ; echo ""
-
-timestamp() {
-  echo -n "[$(date +"%Y-%m-%d %H-%M-%S")] "
-}
 
 if [[ -f ".ufw-autowhitelist.config" ]] ; then
   source .ufw-autowhitelist.config
