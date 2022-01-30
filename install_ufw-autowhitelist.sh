@@ -52,14 +52,14 @@ else
       do
         vHOST=$(dialog --stdout --title "Configuration" \
           --backtitle "ufw-autowhitelist ${vVER} setup" \
-          --inputbox "Host ${vHOSTCTR}: " 8 60)
+          --inputbox "Host $vHOSTCTR: " 8 60)
       done
 
       # Add host to arrays
       declare -a HOSTNAMES+=(${vHOST})
 
+      ((vHOSTCTR+=1))
       vHOST=""
-      vHOSTCTR=$vHOSTCTR+1;
 
       [[ "$vHOST" == "" ]] || break
 
