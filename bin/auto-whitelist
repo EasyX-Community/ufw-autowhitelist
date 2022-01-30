@@ -37,11 +37,7 @@ timestamp ; echo ""
 
 timestamp ; echo "${vPWD}"
 
-if [ -f ../etc/previous_ips ] ; then
-	truncate --size=0 ../etc/previous_ips
-else
-	echo "" | tee ../etc/previous_ips
-fi
+echo "" > ../etc/previous_ips
 
 while read var; do
 	declare -a PREVIOUSIPS+=("${var}")
