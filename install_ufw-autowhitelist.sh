@@ -100,7 +100,7 @@ else
     do
       vYESNOCONFIRM+="Host ${j}: ${HOSTNAMES[$j]}\n"
     done
-    vYESNOCONFIRM+="\nInstall Cronjob: ${vCRONJOBENG}\nInstall Update Cronjob: ${vCRONJOBUPDATEENG}"
+    vYESNOCONFIRM+="\nInstall Cronjob: ${vCRONJOBENG}\nInstall Update Cronjob: ${vCRONJOBUPDATEENG}\n"
 
     dialog --stdout --title "Configuration" \
       --backtitle "ufw-autowhitelist ${vVER} setup" \
