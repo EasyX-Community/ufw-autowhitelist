@@ -1,8 +1,8 @@
 # ufw-auto-whitelist v1.0.0
 
-Auto Whitelist for UFW to be used with dynamic IP address
+Auto Whitelist for UFW to be used with dynamic IP address. Featuring a new installer. Linux only.
 
-No installer yet...<br />
+Installer on the way...<br />
 Requires UFW to be installed.<br />
 Requires domains to be dynamic updated already (use [namecheap](https://www.namecheap.com/))<br />
 Will require basic shell script knowledge.<br />
