@@ -53,6 +53,10 @@ do
 
 done
 
+echo ""
+ufw status
+echo ""
+
 # Write old hostnames to previous_ips file
 echo -n "" > ../etc/previous_ips
 for i in "${HOSTNAMESIPS[@]}"
