@@ -48,11 +48,10 @@ do
 		timestamp ; echo "Host ${HOSTNAMES[$j]} IP's are different, updating..."
 		timestamp ; ufw delete allow from ${PREVIOUSIPS[$j]}
 		timestamp ; ufw allow from ${HOSTNAMESIPS[$j]}
+		timestamp ; echo ""
 	fi
 
 done
-
-timestamp ; echo ""
 
 # Write old hostnames to previous_ips file
 echo -n "" > ../etc/previous_ips
