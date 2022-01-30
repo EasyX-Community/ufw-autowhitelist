@@ -3,28 +3,19 @@
 # Init array of hostnames
 export HOSTNAMES=()
 
+# Autofilled Variables (do not change)
+export vPWD=$(pwd)
+export vPATH=$(echo $PATH)
+export vVER=$(cat .ufw-autowhitelist.version)
+
 timestamp() {
   echo -n "[$(date +"%Y-%m-%d %H-%M-%S")] "
 }
 
-# Get calling script's directory
-SOURCE=${BASH_SOURCE[0]}
-while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-  DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
-  SOURCE=$(readlink "$SOURCE")
-  [[ $SOURCE != /* ]] && SOURCE=$DIR/$SOURCE # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-done
-vSOURCEDIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
-
-# Autofilled Variables (do not change)
-export vPWD=$(pwd)
-export vPATH=$(echo $PATH)
-export vVER=$(cat ${vSOURCEDIR}/.crypto-autosend.version)
-
-if test -f "${vSOURCEDIR}/.crypto-autosend.config"; then
-  source ${vSOURCEDIR}/.crypto-autosend.config
+if test -f ".ufw-autowhitelist.config"; then
+  source .ufw-autowhitelist.config
 else
-  timestamp ; echo "${vSOURCEDIR}/.crypto-autosend.config does not exist, please read the README.md!"
+  timestamp ; echo ".ufw-autowhitelist.config does not exist, please read the README.md!"
   timestamp ; echo ""
   exit
 fi
