@@ -49,11 +49,15 @@ else
   while [ "$vCONTINUEVAR" == "1" ]
   do
 
+    dialog --stdout --title "Configuration" \
+      --backtitle "ufw-autowhitelist ${vVER} setup" \
+      --inputbox "Enter hostnames, enter blank when finished" 8 60
+
     while : ; do
 
       vHOST=$(dialog --stdout --title "Configuration" \
         --backtitle "ufw-autowhitelist ${vVER} setup" \
-        --inputbox "Host $vHOSTCTR (blank to continue): \n" 8 60)
+        --inputbox "Host $vHOSTCTR (blank to finish): \n" 8 60)
 
       # Add host to arrays
       declare -a HOSTNAMES+=(${vHOST})
