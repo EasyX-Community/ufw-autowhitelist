@@ -11,9 +11,9 @@ export HOST0=cato0.easyx.cc
 export HOST1=cato1.easyx.cc
 export HOST2=usnj0.easyx.cc
 
-export HOST0_IP_ADDR=$(getent hosts ${HOST0} | awk '{print $1}')
-export HOST1_IP_ADDR=$(getent hosts ${HOST1} | awk '{print $1}')
-export HOST2_IP_ADDR=$(getent hosts ${HOST2} | awk '{print $1}')
+export HOST0_IP_ADDR=$(getent ahostsv4 ${HOST0} | awk '{print $1}')
+export HOST1_IP_ADDR=$(getent ahostsv4 ${HOST1} | awk '{print $1}')
+export HOST2_IP_ADDR=$(getent ahostsv4 ${HOST2} | awk '{print $1}')
 
 export host0_curr_ip=$(cat ../etc/host0_current_ip)
 export host1_curr_ip=$(cat ../etc/host1_current_ip)
