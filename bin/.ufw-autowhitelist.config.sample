@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-HOSTNAMES+=("myhostexample1")
-HOSTNAMES+=("myhostexample2")
-HOSTNAMES+=("myhostexample3")
-HOSTNAMES+=("myhostexample4")
+declare -a HOSTNAMES+=("myhostexample1")
+declare -a HOSTNAMES+=("myhostexample2")
+declare -a HOSTNAMES+=("myhostexample3")
+declare -a HOSTNAMES+=("myhostexample4")

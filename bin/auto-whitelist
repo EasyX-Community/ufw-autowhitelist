@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Init array of hostnames
-declare -n HOSTNAMES=()
+declare -a HOSTNAMES
 
 # Autofilled Variables (do not change)
 export vPWD=$(pwd)
@@ -24,8 +24,8 @@ timestamp ; echo ""
 timestamp ; echo "crypto-autosend ${vVER}"
 timestamp ; echo ""
 #timestamp ; echo "host                [$vHOST]"
-echo Num items: ${#field[@]}
-echo Data: ${field[@]}
+echo Num items: ${#HOSTNAMES[@]}
+echo Data: ${HOSTNAMES[@]}
 timestamp ; echo ""
 
 
