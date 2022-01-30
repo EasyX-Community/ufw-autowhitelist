@@ -101,19 +101,13 @@ else
     done
     vYESNOCONFIRM+="Install Cronjob: ${vCRONJOBENG}\nInstall Update Cronjob: ${vCRONJOBUPDATEENG}"
 
-    echo ${vYESNOLEN}
-    echo ${vYESNOCONFIRM}
-
     dialog --stdout --title "Configuration" \
       --backtitle "ufw-autowhitelist ${vVER} setup" \
-      --yesno ${vYESNOCONFIRM} $vYESNOLEN 60 \
+      --yesno "${vYESNOCONFIRM}" ${vYESNOLEN} 60 \
     3>&1 1>&2 2>&3 3>&-
     vCONTINUEVAR=$?
-#    vCONTINUEVAR=0
-  done
 
-  echo ${vYESNOLEN}
-  echo ${vYESNOCONFIRM}
+  done
 
   exit
 
