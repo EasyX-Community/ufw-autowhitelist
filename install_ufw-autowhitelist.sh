@@ -92,11 +92,6 @@ else
     export vHOSTNAMESLEN=${#HOSTNAMES[@]}
     export vYESNOLEN=10
 
-    echo ${vYESNOLEN}
-    echo ${vHOSTNAMESLEN}
-
-    sleep 10;
-
     export vYESNOCONFIRM="Is this information correct?\n\n"
     if [ $vHOSTCTR -gt 10 ] ; then
       vYESNOLEN=$vHOSTNAMESLEN
@@ -106,6 +101,9 @@ else
       vYESNOCONFIRM+="Host ${j}: ${HOSTNAMES[$j]}\n"
     done
     vYESNOCONFIRM+="\nInstall Cronjob: ${vCRONJOBENG}\nInstall Update Cronjob: ${vCRONJOBUPDATEENG}"
+
+    echo $vYESNOLEN;
+    sleep 10;
 
     dialog --stdout --title "Configuration" \
       --backtitle "ufw-autowhitelist ${vVER} setup" \
