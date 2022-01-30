@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Init array of hostnames
-export HOSTNAMES=()
+declare -n HOSTNAMES=()
 
 # Autofilled Variables (do not change)
 export vPWD=$(pwd)
