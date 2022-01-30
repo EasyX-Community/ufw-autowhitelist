@@ -118,8 +118,6 @@ else
 
   done
 
-  exit
-
   echo "" | tee bin/.ufw-autowhitelist.config > /dev/null 2>&1
   echo "#!/usr/bin/env bash" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
   echo "" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
@@ -154,7 +152,7 @@ if [[ $vCRONJOB -eq 0 ]] ; then
   if [[ "$vCRONENTRIES" != *"${vPWD}/bin/ufw-autowhitelist ;"* ]] ; then
     echo "installing ufw-autowhitelist cronjob"
     echo -e "$(crontab -l)\n\n# ufw-autowhitelist cronjob" | crontab -
-    echo -e "$(crontab -l)\n0 * * * * ${vPWD}/bin/ufw-autowhitelist ;" | crontab -
+    echo -e "$(crontab -l)\n*/5 * * * * ${vPWD}/bin/ufw-autowhitelist ;" | crontab -
   else
     echo "refusing to install ufw-autowhitelist cron, cron already exists!"
   fi
