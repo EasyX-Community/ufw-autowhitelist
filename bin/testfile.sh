@@ -1,7 +1,9 @@
 #! /bin/bash
 field=()
-while read -r input ; do
-    field+=("$input")
-done
+field+=("myhostexample1")
+field+=("myhostexample2")
+field+=("myhostexample3")
+field+=("myhostexample4")
+
 echo Num items: ${#field[@]}
 echo Data: ${field[@]}
