@@ -37,7 +37,7 @@ timestamp ; echo ""
 
 timestamp ; echo "${vPWD}"
 
-echo "" > ../etc/previous_ips
+echo -n "" > ../etc/previous_ips
 
 while read var; do
 	declare -a PREVIOUSIPS+=("${var}")
