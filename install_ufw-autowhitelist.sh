@@ -20,6 +20,9 @@ if [ -f "bin/.ufw-autowhitelist.config" ] ; then
   echo ""
   echo "ufw-autowhitelist ${vVER}"
   echo ""
+  echo "pwd [$vPWD]"
+  echo "path [$vPATH]"
+  echo ""
 
 else
 
