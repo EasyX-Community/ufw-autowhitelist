@@ -21,7 +21,7 @@ if [ -f "bin/.ufw-autowhitelist.config" ] ; then
 else
 
   echo "apt updating..."
-  #apt update
+  apt update
   echo ""
 
   vDIALOG=$(dpkg-query -l dialog)
@@ -90,20 +90,17 @@ else
     fi
 
     export vHOSTNAMESLEN=${#HOSTNAMES[@]}
-    export vYESNOLEN=15
+    export vYESNOLEN=11
 
     export vYESNOCONFIRM="Is this information correct?\n\n"
-    if [ $vHOSTCTR -gt 15 ] ; then
-      vYESNOLEN=$vHOSTNAMESLEN
+    if [ $vHOSTCTR -gt 11 ] ; then
+      vYESNOLEN=$vHOSTNAMESLEN+11
     fi
     for (( j=0; j<vHOSTNAMESLEN; j++ ));
     do
       vYESNOCONFIRM+="Host ${j}: ${HOSTNAMES[$j]}\n"
     done
     vYESNOCONFIRM+="\nInstall Cronjob: ${vCRONJOBENG}\nInstall Update Cronjob: ${vCRONJOBUPDATEENG}"
-
-    #echo $vYESNOLEN;
-    #sleep 10;
 
     dialog --stdout --title "Configuration" \
       --backtitle "ufw-autowhitelist ${vVER} setup" \
