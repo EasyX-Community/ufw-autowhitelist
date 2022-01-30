@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+cd ${SCRIPT_DIR}
+
 vFORCEOPT=$1
 if [[ ! -z "${vFORCEOPT}" ]] ; then vFORCEOPT=true ; fi
 
 # Autofilled Variables (do not change)
 export vPWD=$(pwd)
 export vPATH=$(echo $PATH)
-export vVER=$(cat .crypto-autosend.version)
+export vVER=$(cat ${SCRIPT_DIR}/.crypto-autosend.version)
 
 # Init array of hostnames
 declare -a HOSTNAMES
