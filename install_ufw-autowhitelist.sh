@@ -59,7 +59,7 @@ else
       declare -a HOSTNAMES+=(${vHOST})
 
       vHOST=""
-      vHOSTCTR++;
+      $vHOSTCTR++;
 
       [[ "$vHOST" == "" ]] || break
 
