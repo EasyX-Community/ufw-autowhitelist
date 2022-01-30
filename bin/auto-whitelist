@@ -65,4 +65,4 @@ done >> ../etc/previous_ips
 # Clear ENV vars for security
 source .ufw-autowhitelist.config.clear
 
-exit ;
+exit
