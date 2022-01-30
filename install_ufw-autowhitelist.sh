@@ -21,7 +21,7 @@ if [ -f "bin/.ufw-autowhitelist.config" ] ; then
 else
 
   echo "apt updating..."
-  apt update
+  #apt update
   echo ""
 
   vDIALOG=$(dpkg-query -l dialog)
