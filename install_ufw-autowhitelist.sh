@@ -90,16 +90,16 @@ else
     fi
 
     vHOSTNAMESLEN=${#HOSTNAMES[@]}
-    vYESNOLEN=15
-    vYESNOCONFIRM="Is this information correct?\n"
-    if [ $vHOSTNAMESLEN -gt 15 ] ; then
+    vYESNOLEN=10
+    vYESNOCONFIRM="Is this information correct?\n\n"
+    if [ $vHOSTNAMESLEN -gt 10 ] ; then
       vYESNOLEN=$vHOSTNAMESLEN
     fi
     for (( j=0; j<vHOSTNAMESLEN; j++ ));
     do
       vYESNOCONFIRM+="Host ${j}: ${HOSTNAMES[$j]}\n"
     done
-    vYESNOCONFIRM+="Install Cronjob: ${vCRONJOBENG}\nInstall Update Cronjob: ${vCRONJOBUPDATEENG}"
+    vYESNOCONFIRM+="\nInstall Cronjob: ${vCRONJOBENG}\nInstall Update Cronjob: ${vCRONJOBUPDATEENG}"
 
     dialog --stdout --title "Configuration" \
       --backtitle "ufw-autowhitelist ${vVER} setup" \
