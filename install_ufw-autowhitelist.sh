@@ -111,6 +111,8 @@ else
     if [ "$vCONTINUEVAR" == "1" ] ; then
       export vHOSTCTR=0
       export vHOST="thiscanbeanythingtostart"
+    else
+      break
     fi
 
   done
