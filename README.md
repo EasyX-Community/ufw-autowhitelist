@@ -1,6 +1,4 @@
-# ufw-auto-whitelist
-
-**Note:** Working on multiple shellscript repositories...
+# ufw-auto-whitelist v1.0.0
 
 Auto Whitelist for UFW to be used with dynamic IP address
 
