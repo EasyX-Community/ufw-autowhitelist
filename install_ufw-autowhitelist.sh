@@ -102,8 +102,8 @@ else
     done
     vYESNOCONFIRM+="\nInstall Cronjob: ${vCRONJOBENG}\nInstall Update Cronjob: ${vCRONJOBUPDATEENG}"
 
-    echo $vYESNOLEN;
-    sleep 10;
+    #echo $vYESNOLEN;
+    #sleep 10;
 
     dialog --stdout --title "Configuration" \
       --backtitle "ufw-autowhitelist ${vVER} setup" \
