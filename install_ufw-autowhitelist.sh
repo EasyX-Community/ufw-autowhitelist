@@ -91,8 +91,8 @@ else
     fi
 
     vHOSTNAMESLEN=${#HOSTNAMES[@]}
-    vYESNOCONFIRM="Is this information correct?\n"
     vYESNOLEN=15
+    vYESNOCONFIRM="Is this information correct?\n"
     if [ $vHOSTNAMESLEN -gt 15 ] ; then
       vYESNOLEN=$vHOSTNAMESLEN
     fi
