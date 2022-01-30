@@ -6,7 +6,7 @@ if [[ ! -z "${vFORCEOPT}" ]] ; then vFORCEOPT=true ; fi
 # Autofilled Variables (do not change)
 export vPWD=$(pwd)
 export vPATH=$(echo $PATH)
-export vVER=$(cat .ufw-autowhitelist.version)
+export vVER=$(cat .crypto-autosend.version)
 
 # Init array of hostnames
 declare -a HOSTNAMES
@@ -24,7 +24,7 @@ timestamp ; echo "pwd [$vPWD]"
 timestamp ; echo "path [$vPATH]"
 timestamp ; echo ""
 
-if [[ -f .ufw-autowhitelist.config ]] ; then
+if test -f ".ufw-autowhitelist.config"; then
   source .ufw-autowhitelist.config
 else
   timestamp ; echo ".ufw-autowhitelist.config does not exist, please read the README.md!"
