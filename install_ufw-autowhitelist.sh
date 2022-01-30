@@ -104,7 +104,7 @@ else
 
     dialog --stdout --title "Configuration" \
       --backtitle "ufw-autowhitelist ${vVER} setup" \
-      --yesno "${vYESNOCONFIRM}" 0 60 \
+      --yesno "${vYESNOCONFIRM}" ${vYESNOLEN} 60 \
     3>&1 1>&2 2>&3 3>&-
     vCONTINUEVAR=$?
 
