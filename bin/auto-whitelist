@@ -46,8 +46,8 @@ do
 		timestamp ; echo "Host ${HOSTNAMES[$j]} IP's are same, not updating..."
 	else
 		timestamp ; echo "Host ${HOSTNAMES[$j]} IP's are different, updating..."
-		ufw delete allow from ${PREVIOUSIPS[$j]}
-		ufw allow from ${HOSTNAMESIPS[$j]}
+		timestamp ; ufw delete allow from ${PREVIOUSIPS[$j]}
+		timestamp ; ufw allow from ${HOSTNAMESIPS[$j]}
 	fi
 
 done
