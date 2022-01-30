@@ -111,6 +111,7 @@ else
     if [ "$vCONTINUEVAR" == "1" ] ; then
       export vHOSTCTR=0
       export vHOST="thiscanbeanythingtostart"
+      declare -a HOSTNAMES=()
     else
       break
     fi
