@@ -108,6 +108,11 @@ else
     3>&1 1>&2 2>&3 3>&-
     vCONTINUEVAR=$?
 
+    if [ "$vCONTINUEVAR" == "1" ] ; then
+      export vHOSTCTR=0
+      export vHOST="thiscanbeanythingtostart"
+    fi
+
   done
 
   exit
