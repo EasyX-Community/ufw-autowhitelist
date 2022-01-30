@@ -1,5 +1,49 @@
 #!/usr/bin/env bash
 
+# Init array of hostnames
+export HOSTNAMES=()
+
+timestamp() {
+  echo -n "[$(date +"%Y-%m-%d %H-%M-%S")] "
+}
+
+# Get calling script's directory
+SOURCE=${BASH_SOURCE[0]}
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+  SOURCE=$(readlink "$SOURCE")
+  [[ $SOURCE != /* ]] && SOURCE=$DIR/$SOURCE # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+vSOURCEDIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+
+# Autofilled Variables (do not change)
+export vPWD=$(pwd)
+export vPATH=$(echo $PATH)
+export vVER=$(cat ${vSOURCEDIR}/.crypto-autosend.version)
+
+if test -f "${vSOURCEDIR}/.crypto-autosend.config"; then
+  source ${vSOURCEDIR}/.crypto-autosend.config
+else
+  timestamp ; echo "${vSOURCEDIR}/.crypto-autosend.config does not exist, please read the README.md!"
+  timestamp ; echo ""
+  exit
+fi
+
+timestamp ; echo ""
+timestamp ; echo "crypto-autosend ${vVER}"
+timestamp ; echo ""
+#timestamp ; echo "host                [$vHOST]"
+echo Num items: ${#field[@]}
+echo Data: ${field[@]}
+timestamp ; echo ""
+
+
+
+exit ;
+
+
+
+
 echo ""
 echo "Auto IP Whitelist"
 echo ""
@@ -8,123 +52,8 @@ export HOST0=cato0.easyx.cc
 export HOST1=cato1.easyx.cc
 export HOST2=usnj0.easyx.cc
 
-# Init array of hostnames
-export HOSTNAMES=""
-HOSTNAMES=()
-
-# Autofilled Variables (do not change)
-export vPWD=$(pwd)
-export vPATH=$(echo $PATH)
-export vVER=$(cat bin/.ufw-autowhitelist.version)
-
 # Clear variables
 export vHOST=""
-
-if [ -f "bin/.ufw-autowhitelist.config" ] ; then
-
-  source bin/.ufw-autowhitelist.config
-
-  echo ""
-  echo "crypto-autosend ${vVER}"
-  echo ""
-	echo Num items: ${#HOSTNAMES[@]}
-	echo Data: ${HOSTNAMES[@]}
-  echo ""
-
-else
-
-  echo "apt updating..."
-  apt update
-  echo ""
-
-  vDIALOG=$(dpkg-query -l dialog)
-  if [[ "no packages found matching" == *"${vDIALOG}"* ]]; then
-    echo "installing dialog"
-    echo ""
-    apt install -y dialog
-    echo ""
-  fi
-
-  vCONTINUEVAR=1
-  while [ "$vCONTINUEVAR" == "1" ]
-  do
-
-    while [ "$vHOST" == "" ]
-    do
-      vHOST=$(dialog --stdout --title "Configuration" \
-        --backtitle "crypto-autosend ${vVER} setup" \
-        --inputbox "RPC IP:" 8 60)
-    done
-
-    # KEEP BELOW
-    dialog --stdout --title "Configuration" \
-      --backtitle "crypto-autosend ${vVER} setup" \
-      --yesno "Should I install cronjob to run every 5 min?" 10 60 \
-    3>&1 1>&2 2>&3 3>&-
-    vCRONJOB=$?
-
-    dialog --stdout --title "Configuration" \
-      --backtitle "crypto-autosend ${vVER} setup" \
-      --yesno "Should I install cronjob to update crypto-autosend weekly?" 10 60 \
-    3>&1 1>&2 2>&3 3>&-
-    vCRONJOBUPDATE=$?
-
-    if [ $vCRONJOB -eq 0 ] ; then
-      vCRONJOBENG="yes"
-    else
-      vCRONJOBENG="no"
-    fi
-
-    if [ $vCRONJOBUPDATE -eq 0 ] ; then
-      vCRONJOBUPDATEENG="yes"
-    else
-      vCRONJOBUPDATEENG="no"
-    fi
-
-    dialog --stdout --title "Configuration" \
-      --backtitle "crypto-autosend ${vVER} setup" \
-      --yesno "Is this information correct?\nRPC IP: ${vHOST}\nInstall Cronjob: ${vCRONJOBENG}\nInstall Update Cronjob: ${vCRONJOBUPDATEENG}" 15 60 \
-    3>&1 1>&2 2>&3 3>&-
-    vCONTINUEVAR=$?
-
-  done
-
-  echo "" | tee bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "#!/usr/bin/env bash" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "#" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "## coind RPC Connection Info" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "#" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "# Coind settings" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "export vHOST=\"192.168.2.50\"" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "export vPORT=\"4200\"" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "export vUSER=\"myrpcusername\"" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "export vPASS=\"myrpcpassword\"" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "# Wallet password to unlock wallet (leave blank for none)" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "export vWALLETPASS=\"MyRTMWalletPasswordOrSeed\"" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "#" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "## General Settings" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "#" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "# Address to send RTM's to" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "export vTOADDR=\"mysendtoaddress\"" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "# Minimum RTM to send" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "export vMINXFER=\"15\"" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "# Comment to add" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "export vCOMMENT=\"To INodez Onboarding (CRON)\"" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "# Location of this repository" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "export vREPODIR=\"${vPWD}\"" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-
-fi
-
-source bin/.ufw-autowhitelist.config
 
 export HOST0_IP_ADDR=$(getent ahostsv4 ${HOST0} | awk 'NR>=0 && NR<=1 { print $1 }')
 export HOST1_IP_ADDR=$(getent ahostsv4 ${HOST1} | awk 'NR>=0 && NR<=1 { print $1 }')
