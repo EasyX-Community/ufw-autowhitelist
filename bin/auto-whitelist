@@ -23,14 +23,13 @@ fi
 timestamp ; echo ""
 timestamp ; echo "ufw-autowhitelist ${vVER}"
 timestamp ; echo ""
-vARRLEN=${#HOSTNAMES[@]}
-# use C style for loop syntax to read all values and indexes
-for (( j=0; j<vARRLEN; j++ ));
+
+vHOSTNAMESLEN=${#HOSTNAMES[@]}
+for (( j=0; j<vHOSTNAMESLEN; j++ ));
 do
-	timestamp ; echo "host                [${HOSTNAMES[$j]}]"
+	timestamp ; echo "Host ${j}	[${HOSTNAMES[$j]}]"
 done
-#echo Num items: ${#HOSTNAMES[@]}
-#echo Data: ${HOSTNAMES[@]}
+
 timestamp ; echo ""
 
 # Clear ENV vars for security
