@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-declare -a HOSTNAMES+=("myhostexample1")
-declare -a HOSTNAMES+=("myhostexample2")
-declare -a HOSTNAMES+=("myhostexample3")
-declare -a HOSTNAMES+=("myhostexample4")
+# Add or remove as many lines as you need
+declare -a HOSTNAMES+=("host-1.example.com")
+declare -a HOSTNAMES+=("host-2.example.com")
+declare -a HOSTNAMES+=("host-3.example.com")
+declare -a HOSTNAMES+=("host-4.example.com")
