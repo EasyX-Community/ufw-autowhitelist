@@ -6,7 +6,7 @@ declare -a HOSTNAMESIPS
 declare -a PREVIOUSIPS
 
 vFORCEOPT=$1
-if [[ ! -z "${vFORCEOPT}" ]] ; then vFORCEOPT=true fi
+if [[ ! -z "${vFORCEOPT}" ]] ; then vFORCEOPT=true ; fi
 
 # Autofilled Variables (do not change)
 export vPWD=$(pwd)
@@ -29,6 +29,40 @@ timestamp ; echo ""
 timestamp ; echo "ufw-autowhitelist ${vVER}"
 timestamp ; echo ""
 
+# Read old hostnames from previous_ips file
+while read var; do
+	var=$(echo "${var}" | xargs)
+	declare -a PREVIOUSIPS+=("${var}")
+done < ../etc/previous_ips
 
+vHOSTNAMESLEN=${#HOSTNAMES[@]}
+for (( j=0; j<vHOSTNAMESLEN; j++ ));
+do
+
+	declare -a HOSTNAMESIPS+=($(getent ahostsv4 ${HOSTNAMES[$j]} | awk 'NR>=0 && NR<=1 { print $1 }' | xargs))
+	timestamp ; echo "Host ${j}: [${HOSTNAMES[$j]}] Curr. IP: [${HOSTNAMESIPS[$j]}] Prev. IP: [${PREVIOUSIPS[$j]}]"
+
+	if [[ [ "${HOSTNAMESIPS[$j]}" == "${PREVIOUSIPS[$j]}" ] || [ ! -z "${vFORCEOPT}" ] ]] ; then
+		timestamp ; echo "Host ${HOSTNAMES[$j]} IP's are same, not updating..."
+	else
+		timestamp ; echo "Host ${HOSTNAMES[$j]} IP's are different, updating..."
+		ufw delete allow from ${PREVIOUSIPS[$j]}
+		ufw allow from ${HOSTNAMESIPS[$j]}
+	fi
+
+done
+
+timestamp ; echo ""
+
+# Write old hostnames to previous_ips file
+echo -n "" > ../etc/previous_ips
+for i in "${HOSTNAMESIPS[@]}"
+do
+	i=$(echo "${i}" | xargs)
+	echo "$i"
+done >> ../etc/previous_ips
+
+# Clear ENV vars for security
+source .ufw-autowhitelist.config.clear
 
 exit
