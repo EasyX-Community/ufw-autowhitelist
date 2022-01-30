@@ -5,6 +5,9 @@ declare -a HOSTNAMES
 declare -a HOSTNAMESIPS
 declare -a PREVIOUSIPS
 
+vFORCEOPT=$1
+if [[ ! -z "${vFORCEOPT}" ]] ; then vFORCEOPT=true fi
+
 # Autofilled Variables (do not change)
 export vPWD=$(pwd)
 export vPATH=$(echo $PATH)
@@ -39,7 +42,7 @@ do
 	declare -a HOSTNAMESIPS+=($(getent ahostsv4 ${HOSTNAMES[$j]} | awk 'NR>=0 && NR<=1 { print $1 }' | xargs))
 	timestamp ; echo "Host ${j}: [${HOSTNAMES[$j]}] Curr. IP: [${HOSTNAMESIPS[$j]}] Prev. IP: [${PREVIOUSIPS[$j]}]"
 
-	if [ "${HOSTNAMESIPS[$j]}" == "${PREVIOUSIPS[$j]}" ]; then
+	if [[ [ "${HOSTNAMESIPS[$j]}" == "${PREVIOUSIPS[$j]}" ] || [ ! -z "${vFORCEOPT}" ] ]]; then
 		timestamp ; echo "Host ${HOSTNAMES[$j]} IP's are same, not updating..."
 	else
 		timestamp ; echo "Host ${HOSTNAMES[$j]} IP's are different, updating..."
