@@ -13,6 +13,13 @@ declare -a HOSTNAMES
 declare -a HOSTNAMESIPS
 declare -a PREVIOUSIPS
 
+timestamp ; echo ""
+timestamp ; echo "ufw-autowhitelist ${vVER}"
+timestamp ; echo ""
+timestamp ; echo "pwd [$vPWD]"
+timestamp ; echo "path [$vPATH]"
+timestamp ; echo ""
+
 timestamp() {
   echo -n "[$(date +"%Y-%m-%d %H-%M-%S")] "
 }
@@ -24,13 +31,6 @@ else
   timestamp ; echo ""
   exit
 fi
-
-timestamp ; echo ""
-timestamp ; echo "ufw-autowhitelist ${vVER}"
-timestamp ; echo ""
-timestamp ; echo "pwd [$vPWD]"
-timestamp ; echo "path [$vPATH]"
-timestamp ; echo ""
 
 # Read old hostnames from previous_ips file
 while read var; do
