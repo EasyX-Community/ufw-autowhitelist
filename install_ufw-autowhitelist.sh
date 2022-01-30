@@ -110,7 +110,7 @@ else
 #      --yesno ${vYESNOCONFIRM} $vYESNOLEN 60 \
 #    3>&1 1>&2 2>&3 3>&-
 #    vCONTINUEVAR=$?
-
+    vCONTINUEVAR=0
   done
 
   echo ${vYESNOLEN}
