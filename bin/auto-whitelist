@@ -14,7 +14,7 @@ timestamp() {
   echo -n "[$(date +"%Y-%m-%d %H-%M-%S")] "
 }
 
-if test -f ".ufw-autowhitelist.config"; then
+if [[ -f ".ufw-autowhitelist.config" ]] ; then
   source .ufw-autowhitelist.config
 else
   timestamp ; echo ".ufw-autowhitelist.config does not exist, please read the README.md!"
@@ -35,18 +35,18 @@ done
 
 timestamp ; echo ""
 
+if [[ -f "../etc/previous_ips" ]] ; then
+	truncate --size=0 ../etc/previous_ips
+else
+	touch ../etc/previous_ips
+fi
+
 while read var; do
 	declare -a PREVIOUSIPS+=("${var}")
 done < ../etc/previous_ips
 
 # debug only
 timestamp ; echo ${PREVIOUSIPS[*]}
-
-if [[ -z "../etc/previous_ips" ]] ; then
-	truncate --size=0 ../etc/previous_ips
-else
-	touch ../etc/previous_ips
-fi
 
 for i in "${HOSTNAMESIPS[@]}"
 do
