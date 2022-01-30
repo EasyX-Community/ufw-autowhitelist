@@ -42,7 +42,11 @@ done < ../etc/previous_ips
 # debug only
 timestamp ; echo ${PREVIOUSIPS[*]}
 
-truncate --size=0 ../etc/previous_ips
+if [[ -z "../etc/previous_ips" ]] ; then
+	truncate --size=0 ../etc/previous_ips
+else
+	touch ../etc/previous_ips
+fi
 
 for i in "${HOSTNAMESIPS[@]}"
 do
