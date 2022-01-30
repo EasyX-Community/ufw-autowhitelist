@@ -4,9 +4,6 @@ echo ""
 echo "Auto IP Whitelist"
 echo ""
 
-vPWD=$(pwd)
-echo "${vPWD}"
-
 export HOST0=cato0.easyx.cc
 export HOST1=cato1.easyx.cc
 export HOST2=usnj0.easyx.cc
