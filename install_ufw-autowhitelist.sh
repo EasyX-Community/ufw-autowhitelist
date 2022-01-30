@@ -42,23 +42,20 @@ else
 
   export vHOSTCTR=0
   export vCONTINUEVAR=1
-  export vHOST=""
+  export vHOST="thiscanbeanythingtostart"
   while [ "$vCONTINUEVAR" == "1" ]
   do
 
     while : ; do
 
-      while [ "$vHOST" == "" ]
-      do
-        vHOST=$(dialog --stdout --title "Configuration" \
-          --backtitle "ufw-autowhitelist ${vVER} setup" \
-          --inputbox "Host $vHOSTCTR: " 8 60)
-      done
+      vHOST=$(dialog --stdout --title "Configuration" \
+        --backtitle "ufw-autowhitelist ${vVER} setup" \
+        --inputbox "Host $vHOSTCTR: " 8 60)
 
       # Add host to arrays
       declare -a HOSTNAMES+=(${vHOST})
 
-      if [ ! -z "${vHOST}" ] ; then
+      if [[ ! -z "${vHOST}" ]] ; then
         ((vHOSTCTR+=1))
       else
         break;
