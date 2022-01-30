@@ -26,101 +26,40 @@ timestamp ; echo ""
 timestamp ; echo "ufw-autowhitelist ${vVER}"
 timestamp ; echo ""
 
-vHOSTNAMESLEN=${#HOSTNAMES[@]}
-for (( j=0; j<vHOSTNAMESLEN; j++ ));
-do
-	declare -a HOSTNAMESIPS+=($(getent ahostsv4 ${HOSTNAMES[$j]} | awk 'NR>=0 && NR<=1 { print $1 }' | xargs))
-	timestamp ; echo "Host ${j}	[${HOSTNAMES[$j]}] [${HOSTNAMESIPS[$j]}]"
-done
-
-timestamp ; echo ""
-
-echo -n "" > ../etc/previous_ips
-
+# Read old hostnames from previous_ips file
 while read var; do
 	var=$(echo "${var}" | xargs)
 	declare -a PREVIOUSIPS+=("${var}")
 done < ../etc/previous_ips
 
-# debug only
-timestamp ; echo ${PREVIOUSIPS[*]}
+vHOSTNAMESLEN=${#HOSTNAMES[@]}
+for (( j=0; j<vHOSTNAMESLEN; j++ ));
+do
+	
+	declare -a HOSTNAMESIPS+=($(getent ahostsv4 ${HOSTNAMES[$j]} | awk 'NR>=0 && NR<=1 { print $1 }' | xargs))
+	timestamp ; echo "Host ${j}:	[${HOSTNAMES[$j]}] Current IP: [${HOSTNAMESIPS[$j]}] Previous IP: [${PREVIOUSIPS[$j]}]"
 
+	if [ "${HOSTNAMESIPS[$j]}" == "${PREVIOUSIPS[$j]}" ]; then
+		timestamp ; echo "Host ${HOSTNAMES[$j]} IP's are same, not updating..."
+	else
+		timestamp ; echo "Host ${HOSTNAMES[$j]} IP's are different, updating..."
+		ufw delete allow from ${PREVIOUSIPS[$j]}
+		ufw allow from ${HOSTNAMESIPS[$j]}
+	fi
+
+done
+
+timestamp ; echo ""
+
+# Write old hostnames to previous_ips file
+echo -n "" > ../etc/previous_ips
 for i in "${HOSTNAMESIPS[@]}"
 do
 	i=$(echo "${i}" | xargs)
 	echo "$i"
 done >> ../etc/previous_ips
 
-
-
-
-
-
 # Clear ENV vars for security
 source .ufw-autowhitelist.config.clear
 
 exit ;
-
-#vHOSTNAMESLEN=${#HOSTNAMES[@]}
-#for (( j=0; j<vHOSTNAMESLEN; j++ ));
-#do
-#	 timestamp ; echo "Host ${j}	[${HOSTNAMES[$j]}] [${HOSTNAMESIPS[$j]}]"
-#done
-
-
-
-
-
-
-
-
-
-
-echo "  HOST: ${HOST0}"
-echo "NEW_IP: ${HOST0_IP_ADDR}"
-echo "CUR_IP: ${host0_curr_ip}"
-echo ""
-
-echo "  HOST: ${HOST1}"
-echo "NEW_IP: ${HOST1_IP_ADDR}"
-echo "CUR_IP: ${host1_curr_ip}"
-echo ""
-
-echo "  HOST: ${HOST2}"
-echo "NEW_IP: ${HOST2_IP_ADDR}"
-echo "CUR_IP: ${host2_curr_ip}"
-echo ""
-
-echo "Updating CSF"
-
-if [ "$HOST0_IP_ADDR" == "$host0_curr_ip" ]; then
-	echo "H0 IP's are same, not updating..."
-else
-	echo "H0 IP's are different, updating..."
-	ufw delete allow from ${host0_curr_ip}
-	ufw allow from $HOST0_IP_ADDR
-	echo ${HOST0_IP_ADDR} > ../etc/host0_current_ip
-fi
-
-if [ "$HOST1_IP_ADDR" == "$host1_curr_ip" ]; then
-        echo "H1 IP's are same, not updating..."
-else
-        echo "H1 IP's are different, updating..."
-        ufw delete allow from ${host1_curr_ip}
-        ufw allow from $HOST1_IP_ADDR
-        echo ${HOST1_IP_ADDR} > ../etc/host1_current_ip
-fi
-
-if [ "$HOST2_IP_ADDR" == "$host2_curr_ip" ]; then
-        echo "H2 IP's are same, not updating..."
-else
-        echo "H2 IP's are different, updating..."
-        ufw delete allow from ${host2_curr_ip}
-        ufw allow from $HOST2_IP_ADDR
-        echo ${HOST2_IP_ADDR} > ../etc/host2_current_ip
-fi
-
-echo ""
-echo "DONE!"
-echo ""
-echo ""
