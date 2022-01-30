@@ -128,6 +128,8 @@ else
     echo "${HOSTNAMES[$j]}" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
   done
 
+  echo "" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
+
 fi
 
 source bin/.ufw-autowhitelist.config
