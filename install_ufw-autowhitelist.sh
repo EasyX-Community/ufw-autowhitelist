@@ -40,12 +40,12 @@ else
     echo ""
   fi
 
+  vHOSTCTR=0
   vCONTINUEVAR=1
   while [ "$vCONTINUEVAR" == "1" ]
   do
 
     vHOST=""
-    vHOSTCTR=0
     while : ; do
 
       while [ "$vHOST" == "" ]
@@ -59,7 +59,7 @@ else
       declare -a HOSTNAMES+=(${vHOST})
 
       vHOST=""
-      $vHOSTCTR++;
+      vHOSTCTR++;
 
       [[ "$vHOST" == "" ]] || break
 
