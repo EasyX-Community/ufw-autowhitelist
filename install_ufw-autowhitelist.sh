@@ -42,10 +42,10 @@ else
 
   export vHOSTCTR=0
   export vCONTINUEVAR=1
+  export vHOST=""
   while [ "$vCONTINUEVAR" == "1" ]
   do
 
-    vHOST=""
     while : ; do
 
       while [ "$vHOST" == "" ]
@@ -60,10 +60,9 @@ else
 
       if [ ! -z "${vHOST}" ] ; then
         ((vHOSTCTR+=1))
+      else
+        break;
       fi
-      vHOST=""
-
-      [[ "$vHOST" == "" ]] || break
 
     done
 
