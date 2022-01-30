@@ -35,9 +35,9 @@ done < ../etc/previous_ips
 vHOSTNAMESLEN=${#HOSTNAMES[@]}
 for (( j=0; j<vHOSTNAMESLEN; j++ ));
 do
-	
+
 	declare -a HOSTNAMESIPS+=($(getent ahostsv4 ${HOSTNAMES[$j]} | awk 'NR>=0 && NR<=1 { print $1 }' | xargs))
-	timestamp ; echo "Host ${j}:	[${HOSTNAMES[$j]}] Current IP: [${HOSTNAMESIPS[$j]}] Previous IP: [${PREVIOUSIPS[$j]}]"
+	timestamp ; echo "Host ${j}: [${HOSTNAMES[$j]}] Curr. IP: [${HOSTNAMESIPS[$j]}] Prev. IP: [${PREVIOUSIPS[$j]}]"
 
 	if [ "${HOSTNAMESIPS[$j]}" == "${PREVIOUSIPS[$j]}" ]; then
 		timestamp ; echo "Host ${HOSTNAMES[$j]} IP's are same, not updating..."
