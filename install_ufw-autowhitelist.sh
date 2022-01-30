@@ -3,14 +3,19 @@
 # Autofilled Variables (do not change)
 export vPWD=$(pwd)
 export vPATH=$(echo $PATH)
-export vVER=$(cat bin/.crypto-autosend.version)
+export vVER=$(cat bin/.ufw-autowhitelist.version)
 
-if [ -f "bin/.crypto-autosend.config" ] ; then
+# Init array of hostnames
+declare -a HOSTNAMES
+declare -a HOSTNAMESIPS
+declare -a PREVIOUSIPS
 
-  source bin/.crypto-autosend.config
+if [ -f "bin/.ufw-autowhitelist.config" ] ; then
+
+  source bin/.ufw-autowhitelist.config
 
   echo ""
-  echo "crypto-autosend ${vVER}"
+  echo "ufw-autowhitelist ${vVER}"
   echo ""
 
 else
@@ -46,9 +51,12 @@ else
       while [ "$vHOST" == "" ]
       do
         vHOST=$(dialog --stdout --title "Configuration" \
-          --backtitle "crypto-autosend ${vVER} setup" \
+          --backtitle "ufw-autowhitelist ${vVER} setup" \
           --inputbox "Host ${vHOSTCTR}: " 8 60)
       done
+
+      # Add host to arrays
+      declare -a HOSTNAMES+=(${vHOST})
 
       vHOSTCTR++;
 
@@ -59,14 +67,14 @@ else
 
 
     dialog --stdout --title "Configuration" \
-      --backtitle "crypto-autosend ${vVER} setup" \
+      --backtitle "ufw-autowhitelist ${vVER} setup" \
       --yesno "Should I install cronjob to run every 5 min?" 10 60 \
     3>&1 1>&2 2>&3 3>&-
     vCRONJOB=$?
 
     dialog --stdout --title "Configuration" \
-      --backtitle "crypto-autosend ${vVER} setup" \
-      --yesno "Should I install cronjob to update crypto-autosend weekly?" 10 60 \
+      --backtitle "ufw-autowhitelist ${vVER} setup" \
+      --yesno "Should I install cronjob to update ufw-autowhitelist weekly?" 10 60 \
     3>&1 1>&2 2>&3 3>&-
     vCRONJOBUPDATE=$?
 
@@ -82,63 +90,50 @@ else
       vCRONJOBUPDATEENG="no"
     fi
 
+    vHOSTNAMESLEN=${#HOSTNAMES[@]}
+    vYESNOCONFIRM="Is this information correct?\n"
+    vYESNOLEN=15
+    if [ $vHOSTNAMESLEN -gt 15 ] ; then
+      vYESNOLEN=$vHOSTNAMESLEN
+    fi
+    for (( j=0; j<vHOSTNAMESLEN; j++ ));
+    do
+      vYESNOCONFIRM+="Host ${j}: ${HOSTNAMES[$j]}\n"
+    done
+    vYESNOCONFIRM+="Install Cronjob: ${vCRONJOBENG}\nInstall Update Cronjob: ${vCRONJOBUPDATEENG}"
+
     dialog --stdout --title "Configuration" \
-      --backtitle "crypto-autosend ${vVER} setup" \
-      --yesno "Is this information correct?\nRPC IP: ${vHOST}\RPC Port: ${vPORT}\nRPC User: ${vUSER}\nRPC Password: ${vPASS}\nWallet Password: ${vWALLETPASS}\nSend To Address: ${vTOADDR}\nMinimum transfer amount: ${vMINXFER}\nComment: ${vCOMMENT}\nInstall Cronjob: ${vCRONJOBENG}\nInstall Update Cronjob: ${vCRONJOBUPDATEENG}" 15 60 \
+      --backtitle "ufw-autowhitelist ${vVER} setup" \
+      --yesno ${vYESNOCONFIRM} $vYESNOLEN 60 \
     3>&1 1>&2 2>&3 3>&-
     vCONTINUEVAR=$?
 
   done
 
-  echo "" | tee bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "#!/usr/bin/env bash" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "#" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "## coind RPC Connection Info" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "#" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "# Coind settings" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "export vHOST=\"192.168.2.50\"" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "export vPORT=\"4200\"" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "export vUSER=\"myrpcusername\"" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "export vPASS=\"myrpcpassword\"" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "# Wallet password to unlock wallet (leave blank for none)" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "export vWALLETPASS=\"MyRTMWalletPasswordOrSeed\"" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "#" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "## General Settings" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "#" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "# Address to send RTM's to" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "export vTOADDR=\"mysendtoaddress\"" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "# Minimum RTM to send" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "export vMINXFER=\"15\"" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "# Comment to add" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "export vCOMMENT=\"To INodez Onboarding (CRON)\"" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "# Location of this repository" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "export vREPODIR=\"${vPWD}\"" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
-  echo "" | tee -a bin/.crypto-autosend.config > /dev/null 2>&1
+  echo "" | tee bin/.ufw-autowhitelist.config > /dev/null 2>&1
+  echo "#!/usr/bin/env bash" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
+  echo "" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
+  echo "# Add or remove as many lines as you need" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
+
+  for (( j=0; j<vHOSTNAMESLEN; j++ ));
+  do
+    echo "${HOSTNAMES[$j]}" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
+  done
 
 fi
 
-source bin/.crypto-autosend.config
+source bin/.ufw-autowhitelist.config
 
-# CHMOD the crypto-autosend scripts
-chmod +x bin/crypto-autosend*
+# CHMOD the ufw-autowhitelist scripts
+chmod +x bin/ufw-autowhitelist*
 
 # Check if vPWD/bin is added to $PATH
 if [[ "${vPATH}" == *"${vPWD}/bin"* ]]; then
-  echo "crypto-autosend directory already in path [${vPATH}]"
+  echo "ufw-autowhitelist directory already in path [${vPATH}]"
   echo ""
 else
-  echo "Adding crypto-autosend directory to \$PATH"
+  echo "Adding ufw-autowhitelist directory to \$PATH"
   echo "export PATH=${vPWD}/bin:\$PATH" | tee -a ${HOME}/.bashrc
-  echo ""
-  echo "Please execute 'source ${HOME}/.bashrc' or log out and back in again"
   echo ""
 fi
 
@@ -146,38 +141,39 @@ fi
 if [[ $vCRONJOB -eq 0 ]] ; then
   vCRONJOBENG="yes"
   vCRONENTRIES=$(crontab -l)
-  if [[ "$vCRONENTRIES" != *"${vPWD}/bin/crypto-autosend ;"* ]] ; then
-    echo "installing crypto-autosend cronjob"
-    echo -e "$(crontab -l)\n\n# crypto-autosend cronjob" | crontab -
-    echo -e "$(crontab -l)\n0 * * * * ${vPWD}/bin/crypto-autosend ;" | crontab -
+  if [[ "$vCRONENTRIES" != *"${vPWD}/bin/ufw-autowhitelist ;"* ]] ; then
+    echo "installing ufw-autowhitelist cronjob"
+    echo -e "$(crontab -l)\n\n# ufw-autowhitelist cronjob" | crontab -
+    echo -e "$(crontab -l)\n0 * * * * ${vPWD}/bin/ufw-autowhitelist ;" | crontab -
   else
-    echo "refusing to install crypto-autosend cron, cron already exists!"
+    echo "refusing to install ufw-autowhitelist cron, cron already exists!"
   fi
 else
   vCRONJOBENG="no"
-  echo "skipping crypto-autosend cronjob install"
+  echo "skipping ufw-autowhitelist cronjob install"
 fi
 
 # ADD CRYPTO-AUTOSEND-UPDATE CRONJOB
 if [[ $vCRONJOBUPDATE -eq 0 ]] ; then
   vCRONJOBUPDATEENG="yes"
   vCRONENTRIES=$(crontab -l)
-  if [[ "$vCRONENTRIES" != *"@weekly ${vPWD}/bin/crypto-autosend-update ;"* ]] ; then
-    echo "installing crypto-autosend-update cronjob"
-    echo -e "$(crontab -l)\n\n# crypto-autosend-update cronjob" | crontab -
-    echo -e "$(crontab -l)\n@weekly ${vPWD}/bin/crypto-autosend-update ;" | crontab -
+  if [[ "$vCRONENTRIES" != *"@weekly ${vPWD}/bin/ufw-autowhitelist-update ;"* ]] ; then
+    echo "installing ufw-autowhitelist-update cronjob"
+    echo -e "$(crontab -l)\n\n# ufw-autowhitelist-update cronjob" | crontab -
+    echo -e "$(crontab -l)\n@weekly ${vPWD}/bin/ufw-autowhitelist-update ;" | crontab -
   else
-    echo "refusing to install crypto-autosend-update cron, cron already exists!"
+    echo "refusing to install ufw-autowhitelist-update cron, cron already exists!"
   fi
 else
   vCRONJOBUPDATEENG="no"
-  echo "skipping crypto-autosend-update cronjob install"
+  echo "skipping ufw-autowhitelist-update cronjob install"
 fi
 
 echo ""
-
-echo "crypto-autosend installation is complete!"
+echo "Please execute 'source ${HOME}/.bashrc' or log out and back in again"
+echo ""
+echo "ufw-autowhitelist installation is complete!"
 echo ""
 
 # Clear ENV vars for security
-source bin/.crypto-autosend.config.clear
+source bin/.ufw-autowhitelist.config.clear
