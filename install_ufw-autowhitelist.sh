@@ -91,6 +91,12 @@ else
 
     export vHOSTNAMESLEN=${#HOSTNAMES[@]}
     export vYESNOLEN=10
+
+    echo ${vYESNOLEN}
+    echo ${vHOSTNAMESLEN}
+
+    sleep 10;
+
     export vYESNOCONFIRM="Is this information correct?\n\n"
     if [ $vHOSTCTR -gt 10 ] ; then
       vYESNOLEN=$vHOSTNAMESLEN
