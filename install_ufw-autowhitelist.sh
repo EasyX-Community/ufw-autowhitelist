@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+cd ${SCRIPT_DIR}
+
 # Autofilled Variables (do not change)
 export vPWD=$(pwd)
 export vPATH=$(echo $PATH)
@@ -125,7 +128,7 @@ else
 
   for (( j=0; j<vHOSTNAMESLEN; j++ ));
   do
-    echo "${HOSTNAMES[$j]}" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
+    echo "declare -a HOSTNAMES+=(\"${HOSTNAMES[$j]}\")" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
   done
 
   echo "" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
