@@ -9,7 +9,8 @@ export HOST1=cato1.easyx.cc
 export HOST2=usnj0.easyx.cc
 
 # Init array of hostnames
-export HOSTNAMES=()
+export HOSTNAMES=""
+HOSTNAMES=()
 
 # Autofilled Variables (do not change)
 export vPWD=$(pwd)
