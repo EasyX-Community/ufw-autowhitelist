@@ -38,7 +38,7 @@ timestamp ; echo ""
 if [[ -f "../etc/previous_ips" ]] ; then
 	truncate --size=0 ../etc/previous_ips
 else
-	touch ../etc/previous_ips
+	echo "" | tee ../etc/previous_ips
 fi
 
 while read var; do
