@@ -90,10 +90,10 @@ else
     fi
 
     export vHOSTNAMESLEN=${#HOSTNAMES[@]}
-    export vYESNOLEN=10
+    export vYESNOLEN=15
 
     export vYESNOCONFIRM="Is this information correct?\n\n"
-    if [ $vHOSTCTR -gt 10 ] ; then
+    if [ $vHOSTCTR -gt 15 ] ; then
       vYESNOLEN=$vHOSTNAMESLEN
     fi
     for (( j=0; j<vHOSTNAMESLEN; j++ ));
