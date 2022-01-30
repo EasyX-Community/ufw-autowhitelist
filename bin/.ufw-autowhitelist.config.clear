@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
 declare -a HOSTNAMES=()
+declare -a HOSTNAMESIPS=()
+declare -a CURRENTIPS=()
