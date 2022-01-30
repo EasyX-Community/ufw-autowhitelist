@@ -1,30 +1,31 @@
 #!/usr/bin/env bash
 
-cd ${HOME}/bin/etc
-
 echo ""
 echo "Auto IP Whitelist"
 echo ""
 
-export HOST0=domain1.example.com
-export HOST1=domain2.example.com
-export HOST2=domain3.example.com
+vPWD=$(pwd)
+echo "${vPWD}"
+
+export HOST0=cato0.easyx.cc
+export HOST1=cato1.easyx.cc
+export HOST2=usnj0.easyx.cc
 
 export HOST0_IP_ADDR=$(getent hosts ${HOST0} | awk '{print $1}')
 export HOST1_IP_ADDR=$(getent hosts ${HOST1} | awk '{print $1}')
 export HOST2_IP_ADDR=$(getent hosts ${HOST2} | awk '{print $1}')
 
-host0_curr_ip=$(cat ../etc/host0_current_ip)
-host1_curr_ip=$(cat ../etc/host1_current_ip)
-host2_curr_ip=$(cat ../etc/host2_current_ip)
+export host0_curr_ip=$(cat ../etc/host0_current_ip)
+export host1_curr_ip=$(cat ../etc/host1_current_ip)
+export host2_curr_ip=$(cat ../etc/host2_current_ip)
 
-HOST0_IP_ADDR=$(echo "${HOST0_IP_ADDR}" | xargs)
-HOST1_IP_ADDR=$(echo "${HOST1_IP_ADDR}" | xargs)
-HOST2_IP_ADDR=$(echo "${HOST2_IP_ADDR}" | xargs)
+export HOST0_IP_ADDR=$(echo "${HOST0_IP_ADDR}" | xargs)
+export HOST1_IP_ADDR=$(echo "${HOST1_IP_ADDR}" | xargs)
+export HOST2_IP_ADDR=$(echo "${HOST2_IP_ADDR}" | xargs)
 
-host0_curr_ip=$(echo "${host0_curr_ip}" | xargs)
-host1_curr_ip=$(echo "${host1_curr_ip}" | xargs)
-host2_curr_ip=$(echo "${host2_curr_ip}" | xargs)
+export host0_curr_ip=$(echo "${host0_curr_ip}" | xargs)
+export host1_curr_ip=$(echo "${host1_curr_ip}" | xargs)
+export host2_curr_ip=$(echo "${host2_curr_ip}" | xargs)
 
 echo "  HOST: ${HOST0}"
 echo "NEW_IP: ${HOST0_IP_ADDR}"
