@@ -116,7 +116,7 @@ else
   echo "export vMINXFER=\"15\"" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
   echo "" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
   echo "# Comment to add" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
-  echo "export vCOMMENT="To INodez Onboarding (CRON)"" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
+  echo "export vCOMMENT=\"To INodez Onboarding (CRON)\"" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
   echo "" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
   echo "# Location of this repository" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
   echo "export vREPODIR=\"${vPWD}\"" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
