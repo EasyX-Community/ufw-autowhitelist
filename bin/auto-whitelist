@@ -54,15 +54,6 @@ done >> ../etc/previous_ips
 
 
 
-export HOST0_IP_ADDR=$(echo "${HOST0_IP_ADDR}" | xargs)
-export HOST1_IP_ADDR=$(echo "${HOST1_IP_ADDR}" | xargs)
-export HOST2_IP_ADDR=$(echo "${HOST2_IP_ADDR}" | xargs)
-
-export host0_curr_ip=$(echo "${host0_curr_ip}" | xargs)
-export host1_curr_ip=$(echo "${host1_curr_ip}" | xargs)
-export host2_curr_ip=$(echo "${host2_curr_ip}" | xargs)
-
-
 
 
 # Clear ENV vars for security
