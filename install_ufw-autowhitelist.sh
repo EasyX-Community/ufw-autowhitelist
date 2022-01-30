@@ -58,7 +58,9 @@ else
       # Add host to arrays
       declare -a HOSTNAMES+=(${vHOST})
 
-      ((vHOSTCTR+=1))
+      if [ ! -z "${vHOST}" ] ; then
+        ((vHOSTCTR+=1))
+      fi
       vHOST=""
 
       [[ "$vHOST" == "" ]] || break
