@@ -105,13 +105,18 @@ else
     echo ${vYESNOLEN}
     echo ${vYESNOCONFIRM}
 
-    dialog --stdout --title "Configuration" \
-      --backtitle "ufw-autowhitelist ${vVER} setup" \
-      --yesno ${vYESNOCONFIRM} $vYESNOLEN 60 \
-    3>&1 1>&2 2>&3 3>&-
-    vCONTINUEVAR=$?
+#    dialog --stdout --title "Configuration" \
+#      --backtitle "ufw-autowhitelist ${vVER} setup" \
+#      --yesno ${vYESNOCONFIRM} $vYESNOLEN 60 \
+#    3>&1 1>&2 2>&3 3>&-
+#    vCONTINUEVAR=$?
 
   done
+
+  echo ${vYESNOLEN}
+  echo ${vYESNOCONFIRM}
+
+  exit
 
   echo "" | tee bin/.ufw-autowhitelist.config > /dev/null 2>&1
   echo "#!/usr/bin/env bash" | tee -a bin/.ufw-autowhitelist.config > /dev/null 2>&1
