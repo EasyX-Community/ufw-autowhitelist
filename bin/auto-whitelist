@@ -35,7 +35,7 @@ done
 
 timestamp ; echo ""
 
-if [[ -f "../etc/previous_ips" ]] ; then
+if [ -f ../etc/previous_ips ] ; then
 	truncate --size=0 ../etc/previous_ips
 else
 	echo "" | tee ../etc/previous_ips
