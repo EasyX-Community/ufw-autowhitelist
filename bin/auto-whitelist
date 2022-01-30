@@ -14,9 +14,9 @@ export HOST0_IP_ADDR=$(getent hosts ${HOST0} | awk '{print $1}')
 export HOST1_IP_ADDR=$(getent hosts ${HOST1} | awk '{print $1}')
 export HOST2_IP_ADDR=$(getent hosts ${HOST2} | awk '{print $1}')
 
-host0_curr_ip=$(cat host0_current_ip)
-host1_curr_ip=$(cat host1_current_ip)
-host2_curr_ip=$(cat host2_current_ip)
+host0_curr_ip=$(cat ../etc/host0_current_ip)
+host1_curr_ip=$(cat ../etc/host1_current_ip)
+host2_curr_ip=$(cat ../etc/host2_current_ip)
 
 HOST0_IP_ADDR=$(echo "${HOST0_IP_ADDR}" | xargs)
 HOST1_IP_ADDR=$(echo "${HOST1_IP_ADDR}" | xargs)
@@ -49,7 +49,7 @@ else
 	echo "H0 IP's are different, updating..."
 	ufw delete allow from ${host0_curr_ip}
 	ufw allow from $HOST0_IP_ADDR
-	echo ${HOST0_IP_ADDR} > host0_current_ip
+	echo ${HOST0_IP_ADDR} > ../etc/host0_current_ip
 fi
 
 if [ "$HOST1_IP_ADDR" == "$host1_curr_ip" ]; then
@@ -58,7 +58,7 @@ else
         echo "H1 IP's are different, updating..."
         ufw delete allow from ${host1_curr_ip}
         ufw allow from $HOST1_IP_ADDR
-        echo ${HOST1_IP_ADDR} > host1_current_ip
+        echo ${HOST1_IP_ADDR} > ../etc/host1_current_ip
 fi
 
 if [ "$HOST2_IP_ADDR" == "$host2_curr_ip" ]; then
@@ -67,7 +67,7 @@ else
         echo "H2 IP's are different, updating..."
         ufw delete allow from ${host2_curr_ip}
         ufw allow from $HOST2_IP_ADDR
-        echo ${HOST2_IP_ADDR} > host2_current_ip
+        echo ${HOST2_IP_ADDR} > ../etc/host2_current_ip
 fi
 
 echo ""
