@@ -89,10 +89,10 @@ else
       vCRONJOBUPDATEENG="no"
     fi
 
-    vHOSTNAMESLEN=${#HOSTNAMES[@]}
-    vYESNOLEN=10
-    vYESNOCONFIRM="Is this information correct?\n\n"
-    if [ $vHOSTNAMESLEN -gt 10 ] ; then
+    export vHOSTNAMESLEN=${#HOSTNAMES[@]}
+    export vYESNOLEN=10
+    export vYESNOCONFIRM="Is this information correct?\n\n"
+    if [ $vHOSTCTR -gt 10 ] ; then
       vYESNOLEN=$vHOSTNAMESLEN
     fi
     for (( j=0; j<vHOSTNAMESLEN; j++ ));
