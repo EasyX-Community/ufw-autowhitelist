@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+cd ${SCRIPT_DIR}
+
+vFORCEOPT=$1
+if [[ ! -z "${vFORCEOPT}" ]] ; then vFORCEOPT=true ; fi
+
+# Autofilled Variables (do not change)
+export vPWD=$(pwd)
+export vPATH=$(echo $PATH)
+export vVER=$(cat ${SCRIPT_DIR}/.crypto-autosend.version)
+
+# Init array of hostnames
+declare -a HOSTNAMES
+declare -a HOSTNAMESIPS
+declare -a PREVIOUSIPS
+
+timestamp() {
+  echo -n "[$(date +"%Y-%m-%d %H-%M-%S")] "
+}
+
+timestamp ; echo ""
+timestamp ; echo "ufw-autowhitelist ${vVER}"
+timestamp ; echo ""
+timestamp ; echo "pwd [$vPWD]"
+timestamp ; echo "path [$vPATH]"
+timestamp ; echo ""
+
+if test -f ".ufw-autowhitelist.config"; then
+  source .ufw-autowhitelist.config
+else
+  timestamp ; echo ".ufw-autowhitelist.config does not exist, please read the README.md!"
+  timestamp ; echo ""
+  exit
+fi
+
+# Read old hostnames from previous_ips file
+while read var; do
+	var=$(echo "${var}" | xargs)
+	declare -a PREVIOUSIPS+=("${var}")
+done < ../etc/previous_ips
+
+vHOSTNAMESLEN=${#HOSTNAMES[@]}
+for (( j=0; j<vHOSTNAMESLEN; j++ ));
+do
+
+	declare -a HOSTNAMESIPS+=($(getent ahostsv4 ${HOSTNAMES[$j]} | awk 'NR>=0 && NR<=1 { print $1 }' | xargs))
+	timestamp ; echo "Host ${j}: [${HOSTNAMES[$j]}] Curr. IP: [${HOSTNAMESIPS[$j]}] Prev. IP: [${PREVIOUSIPS[$j]}]"
+
+	if [[ "${HOSTNAMESIPS[$j]}" == "${PREVIOUSIPS[$j]}" ]] && [[ ! $vFORCEOPT ]] ; then
+		timestamp ; echo "Host ${HOSTNAMES[$j]} IP's are same, not updating..."
+	else
+		timestamp ; echo "Host ${HOSTNAMES[$j]} IP's are different, updating..."
+		timestamp ; ufw delete allow from ${PREVIOUSIPS[$j]}
+		timestamp ; ufw allow from ${HOSTNAMESIPS[$j]}
+		timestamp ; echo ""
+	fi
+
+done
+
+echo ""
+ufw status
+echo ""
+
+# Write old hostnames to previous_ips file
+echo -n "" > ../etc/previous_ips
+for i in "${HOSTNAMESIPS[@]}"
+do
+	i=$(echo "${i}" | xargs)
+	echo "$i"
+done >> ../etc/previous_ips
+
+# Clear ENV vars for security
+source .ufw-autowhitelist.config.clear
+
+exit

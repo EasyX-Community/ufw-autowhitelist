@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+cd ${SCRIPT_DIR}
+
+# Autofilled Variables (do not change)
+export vPWD=$(pwd)
+export vPATH=$(echo $PATH)
+export vVER=$(cat .ufw-autowhitelist.version)
+
+timestamp() {
+  echo -n "[$(date +"%Y-%m-%d %H-%M-%S")] "
+}
+
+if [[ -f ".ufw-autowhitelist.config" ]]; then
+
+  source .ufw-autowhitelist.config
+
+  timestamp ; echo ""
+  timestamp ; echo "ufw-autowhitelist-update ${vVER}"
+  timestamp ; echo ""
+  timestamp ; echo "pwd [$vPWD]"
+  timestamp ; echo "path [$vPATH]"
+  timestamp ; echo ""
+
+else
+
+  echo ".ufw-autowhitelist.config does not exist.\nPlease read the README.md and run the installer!"
+  echo ""
+  exit
+
+fi
+
+cd ..
+git pull ; ./install_ufw-autowhitelist.sh ;
+cd ${SCRIPT_DIR}
+
+# Clear ENV vars for security
+source .ufw-autowhitelist.config.clear
