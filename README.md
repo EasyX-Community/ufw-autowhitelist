@@ -1,4 +1,4 @@
-# ufw-autowhitelist v1.0.0
+# ufw-autowhitelist v1.0.1
 
 Auto Whitelist for UFW to be used with dynamic IP address. Featuring a new installer. Linux only.
 
