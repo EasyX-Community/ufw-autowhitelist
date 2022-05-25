@@ -37,10 +37,14 @@ If you are unsure about crontab times, this calculator will come in handy [https
 
 
 #### Donations:
-**XMR:** 84wwa7EKo8uasZAHijHKtBTuBaMPuNjCJgnfGJrsLFo4aZcfrzGvUX33sSeFNdno8fPiTDGnz4h1bCvsdFQYWRuR2619FzS <br />
-**ETH(ERC-20):** 0xc89eEa9b5C0cfa7f583dc1A6405a7d5730ADB603 <br />
+**XMR:** 41tsd6TiQouPJN5cjERKjL6kE5fXcdUrr4uoRrYyfLFCZJumDXpipiERNtVq2DSaUjeAEaDjdDbs15YTNUYRqhkdE83x4PE <br />
+**BTC:** bc1qffd7j4jdspfjc8mr05g8yqfncjfdnzamec53tr <br />
+**LTC:** ltc1q8afdasd2qanphs82rqvetzu8yrk2kq6y4fqvrn <br />
+**ETH(ERC-20):** 0x784207DC134B61E0bD7edA658aa830e8FD12A7c7 <br />
 **BNB(BSC)** 0xc89eEa9b5C0cfa7f583dc1A6405a7d5730ADB603 <br />
 **RTM:** RDg5KstHYvxip77EiGhPKYNL3TZQr6456T <br />
 **AVN:** R9zSPpKjo6tCutMT5FyyGNr2vRaAssEtrm <br />
+**CHOX:** 5VpD2eBmm5neSWJHwk9cf7NQr76YTQamwp <br />
+**ZEN:** znisoX1rR8t7kAz6Fd7CV6y7by1WihJkUDS <br />
 **PHL:** F7XaUosKYEXPP62o31DdpDoADo3VcxoFP4 <br />
 **PEXA:** XBghzGLdeUzspUcJpeggPFLs3mAyTRHpPH <br />
