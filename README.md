@@ -6,7 +6,7 @@ Force update with `ufw-autowhitelist --force`
 
 All three domains will be resolved and then whitelisted in UFW. The old IP address will be removed each update.
 
-### Disclaimer:
+#### Disclaimer:
 **I am not liable in any way for damages to your computer due to bugs, being hacked, exploited, or any other malfunction of the scripts. Having a script that automatically whitelist's ip addresses is possibly dangerous and can be exploited for malicious purposes. Please be advised of the risks and ensure the domains/webservices are hosted at a registrar/host with 2fa enabled and secure passwords. This source code is open, it is your responsibility to audit the code.**
 
 #### Notes:
@@ -34,6 +34,23 @@ If you are unsure about crontab times, this calculator will come in handy [https
 
 #### Coming features:
 - Can't think of any at the moment, but please create GitHub or Gogs issue ticket if you have any suggestions.
+
+#### Coming features:
+- Can't think of any at the moment, but please create GitHub or Gogs issue ticket if you have any suggestions.
+
+#### Official Repositories:
+Some sources will be under the user profile for mooleshacat/moocat and some will be under EasyX-Community. The following are the locations in which you can find the official source code of this repository:
+- https://gogs.easyx.cc/EasyX-Community/ (Main Repository)
+- https://github.com/EasyX-Community/ (Mirror)
+- https://gitlab.com/e3074 (Mirror)
+- https://codeberg.org/EasyX-Community/ (Mirror)
+- https://bitbucket.org/easyx-community/ (Mirror)
+- https://sourceforge.net/u/easyx-community/profile/ (Mirror)
+- https://codegiant.io/mooleshacat/easyx-community (Mirror)
+
+If you have downloaded or cloned the source from anywhere else, you may have a copy that has been modified in malicious ways!
+
+Please be sure only to use the above sources!
 
 
 #### Donations:
