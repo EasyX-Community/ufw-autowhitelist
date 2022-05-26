@@ -54,7 +54,7 @@ Please be sure only to use the above sources!
 
 
 #### Donations:
-**XMR:** 41tsd6TiQouPJN5cjERKjL6kE5fXcdUrr4uoRrYyfLFCZJumDXpipiERNtVq2DSaUjeAEaDjdDbs15YTNUYRqhkdE83x4PE <br />
+**XMR:** 41y4Zerp4HbMM6Q6qTdPfxNKuHJLiuWioB7G8pm8mmNK2CQ2EkPsdawaChHtmJPiUp8X5KAZ9dVkG7Yt7bra6auM3iDZqdh <br />
 **BTC:** bc1qffd7j4jdspfjc8mr05g8yqfncjfdnzamec53tr <br />
 **LTC:** ltc1q8afdasd2qanphs82rqvetzu8yrk2kq6y4fqvrn <br />
 **ETH(ERC-20):** 0x784207DC134B61E0bD7edA658aa830e8FD12A7c7 <br />
